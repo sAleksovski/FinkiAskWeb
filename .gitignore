@@ -1,0 +1,7 @@
+# IntelliJ IDEA
+.idea
+finkiAskWeb.iml
+
+# Sublime Text
+finkiAskWeb.sublime-project
+finkiAskWeb.sublime-workspace

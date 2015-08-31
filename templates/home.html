@@ -1,0 +1,16 @@
+<div class="text-center">
+    <a href="" ng-click="changeTab('TEST')" class="col-xs-4 btn-material-blue test-tabs" ng-class="{'active-tab': activeTab == 'TEST'}">TESTS</a>
+    <a href="" ng-click="changeTab('ANONYMOUSTEST')" class="col-xs-4 btn-material-blue test-tabs" ng-class="{'active-tab': activeTab == 'ANONYMOUSTEST'}">ANONYMOUS TEST</a>
+    <a href="" ng-click="changeTab('SURVEY')" class="col-xs-4 btn-material-blue test-tabs" ng-class="{'active-tab': activeTab == 'SURVEY'}">SURVEYS</a>
+</div>
+
+<div class="container">
+    <div class="well" ng-repeat="test in tests" ng-class="{'mtop20': $index == 0}">
+        <legend>{{ test.name }}</legend>
+        <div>Allowed time: {{ test.duration }} minutes</div>
+    </div>
+
+    <div class="text-center mtop20" ng-show="tests.length == 0">
+        No tests in this category.
+    </div>
+</div>

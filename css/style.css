@@ -1,0 +1,35 @@
+.mtop20 {
+    margin-top: 20px;
+}
+
+.test-tabs {
+    color: white;
+    padding: 10px 5px;
+    border-bottom: 4px solid #2196F3;
+}
+
+.test-tabs:hover {
+    text-decoration: none;
+    border-bottom: 4px solid #349ff4;
+}
+
+.test-tabs:focus {
+    text-decoration: none;
+}
+
+.active-tab {
+    border-bottom: 4px solid #1976D2 !important;
+}
+
+.navbar-no-margin {
+    margin-bottom: 0 !important;
+}
+
+.icon {
+    margin-top: 2px;
+    position: absolute;
+}
+
+.title {
+    margin-left: 32px;
+}
