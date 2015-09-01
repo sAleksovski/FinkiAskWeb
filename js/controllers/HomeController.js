@@ -9,8 +9,10 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
         $scope.activeTab = tab;
         $rootScope.globals.activeTab = tab;
         $cookieStore.put('globals', $rootScope.globals);
-        ApiService.getTests(tab, function(response) {
+        ApiService.getTests(tab).then(function(response) {
             $scope.tests = response.data;
+        }, function(response) {
+            $scope.tests = [];
         });
     }
 

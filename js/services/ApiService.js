@@ -4,16 +4,12 @@ function ApiService($window, $http, $rootScope) {
 
     service.getTests = getTests;
 
-    service.host = "http://192.168.1.67:8080";
+    service.host = "http://192.168.0.109:8080";
     service.get_test_url = service.host + "/ask/api/tests?type="
 
     return service;
 
-    function getTests(type, callback) {
-        $http.get(service.get_test_url + type).then(function(response) {
-            callback(response);
-        }, function(response) {
-            callback([]);
-        });
+    function getTests(type) {
+        return $http.get(service.get_test_url + type);
     }
 }
