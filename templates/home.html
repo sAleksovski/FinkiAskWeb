@@ -5,7 +5,7 @@
 </div>
 
 <div class="container">
-    <div class="well" ng-repeat="test in tests" ng-class="{'mtop20': $index == 0}">
+    <div class="well" ng-repeat="test in tests" ng-class="{'mtop20': $index == 0}" ng-click="open()">
         <legend>{{ test.name }}</legend>
         <div>Allowed time: {{ test.duration }} minutes</div>
     </div>
@@ -13,4 +13,24 @@
     <div class="text-center mtop20" ng-show="tests.length == 0">
         No tests in this category.
     </div>
+
+    <script type="text/ng-template" id="passwordModalContent.html">
+        <div class="modal-header mtop100">
+            <h3 class="modal-title">Insert password!</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="inputPassword">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer mtop20">
+            <button class="btn btn-material-red" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-material-blue" type="button" ng-click="ok()">OK</button>
+        </div>
+    </script>
+
+    <div ng-show="password">Password from a modal: {{ password }}</div>
 </div>

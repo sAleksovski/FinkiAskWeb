@@ -4,7 +4,7 @@ function ApiService($window, $http, $rootScope) {
 
     service.getTests = getTests;
 
-    service.host = "http://localhost:8080";
+    service.host = "http://192.168.1.67:8080";
     service.get_test_url = service.host + "/ask/api/tests?type="
 
     return service;
@@ -14,5 +14,4 @@ function ApiService($window, $http, $rootScope) {
             callback(response);
         });
     }
-
 }

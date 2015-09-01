@@ -1,4 +1,4 @@
-app.controller('HomeController', function($scope, $rootScope, ApiService) {
+app.controller('HomeController', function($scope, $rootScope, $modal, ApiService) {
 
     $rootScope.title = 'Finki ASK';
 
@@ -12,4 +12,27 @@ app.controller('HomeController', function($scope, $rootScope, ApiService) {
         });
     }
 
+    $scope.open = function () {
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'passwordModalContent.html',
+            controller: 'PasswordModalInstanceCtrl'
+        });
+
+        modalInstance.result.then(function (password) {
+            $scope.password = password;
+        }, function () {
+        });
+    };
+
+});
+
+angular.module('finkiAskApp').controller('PasswordModalInstanceCtrl', function ($scope, $modalInstance) {
+    $scope.ok = function () {
+        $modalInstance.close($scope.inputPassword);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
 });
