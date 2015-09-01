@@ -1,16 +1,20 @@
-app.controller('HomeController', function($scope, $rootScope, $modal, ApiService) {
+app.controller('HomeController', function($scope, $rootScope, $cookieStore, $modal, ApiService) {
 
     $rootScope.title = 'Finki ASK';
 
-    $scope.activeTab = 'TEST';
+    $scope.activeTab = $rootScope.globals.activeTab || 'TEST';
     $scope.tests = [];
 
     $scope.changeTab = function(tab) {
         $scope.activeTab = tab;
+        $rootScope.globals.activeTab = tab;
+        $cookieStore.put('globals', $rootScope.globals);
         ApiService.getTests(tab, function(response) {
-            $scope.tests = response;
+            $scope.tests = response.data;
         });
     }
+
+    $scope.changeTab($scope.activeTab);
 
     $scope.open = function () {
         var modalInstance = $modal.open({

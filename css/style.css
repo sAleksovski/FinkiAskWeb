@@ -10,6 +10,7 @@
     color: white;
     padding: 10px 5px;
     border-bottom: 4px solid #2196F3;
+    max-height: 44px;
 }
 
 .test-tabs:hover {

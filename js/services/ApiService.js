@@ -10,8 +10,10 @@ function ApiService($window, $http, $rootScope) {
     return service;
 
     function getTests(type, callback) {
-        $http.get(service.get_test_url + type).success(function(response){
+        $http.get(service.get_test_url + type).then(function(response) {
             callback(response);
+        }, function(response) {
+            callback([]);
         });
     }
 }
