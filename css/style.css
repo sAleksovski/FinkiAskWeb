@@ -32,6 +32,10 @@
     border: 1px solid #2196F3;
 }
 
+.navbar-header-full-width {
+    width: 100%;
+}
+
 .icon {
     margin-top: 2px;
     position: absolute;
