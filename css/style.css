@@ -40,3 +40,15 @@
 .title {
     margin-left: 32px;
 }
+
+
+/* Functional styling;
+ * These styles are required for noUiSlider to function.
+ * You don't need to change these rules to apply your design.
+ */
+.noUi-handle {
+    width: 24px;
+    height: 24px;
+    top: -11px;
+}
+

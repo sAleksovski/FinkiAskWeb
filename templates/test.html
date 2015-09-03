@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="well" ng-repeat="question in globals.test.questions" ng-class="{'mtop20': $index == 0}">
+        <legend>Question {{ $index + 1}}</legend>
+        <p>{{ question.text }}</p>
+        <div class="clearfix mtop20"></div>
+        <!-- <pre>{{question}}</pre> -->
+        <div ng-repeat="answer in question.answers">
+            <!-- Single Choice -->
+            <div ng-if="question.type == 'SINGLE'">              
+                <div class="radio radio-material-blue">
+                    <label>
+                        <input type="radio" ng-model="question.sel_ans" ng-click="save(question)" value="{{ answer.id }}" >
+                        {{ answer.text }}
+                    </label>
+                </div>
+            </div>
+
+            <!-- Multiple Choice -->
+            <div ng-if="question.type == 'MULTIPLE'">
+                <div class="checkbox checkbox-material-blue">
+                    <label>
+                        <input ng-model="answer.selected" ng-change="save(question)" type="checkbox"> {{ answer.text }}
+                    </label>
+                </div>
+            </div>
+
+            <!-- Text -->
+            <div ng-if="question.type == 'TEXT'">
+                <div class="form-group form-group-material-blue">
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" ng-model="answer.text" value="{{ answer.text }}" ng-blur="save(question)">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- Range -->
+            <div ng-if="question.type == 'RANGE'">
+                <div class="text-center">{{ question.value }}</div>
+                <div class="clearfix mtop20"></div>
+                <div class="slider shor slider-material-blue" slider start="{{ question.min }}" end="{{ question.max }}" step=1 ng-model="question.value" action-after-change="sliderChanged(question)"></div>
+            </div>
+        </div>
+    </div>
+</div>
