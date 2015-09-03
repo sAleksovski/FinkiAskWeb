@@ -1,7 +1,6 @@
 app.controller('TestController', function($scope, $rootScope, $cookieStore, $modal, $location, ApiService) {
 
     $rootScope.title = 'Test';
-    $rootScope.show_back_arrow = true;
     $rootScope.show_send_test = true;
     $scope.show = 0;
 
@@ -24,6 +23,7 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
 
     $rootScope.icon_clicked = function() {
         $scope.show = 0;
+        $rootScope.show_back_arrow = false;
     }
 
     $rootScope.finish_test_clicked = function() {
@@ -72,6 +72,7 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
 
     $scope.changeQuestion = function(id) {
         $scope.show = id;
+        $rootScope.show_back_arrow = true;
     }
 
     angular.element(document).ready(function() {
