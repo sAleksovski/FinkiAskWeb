@@ -1,6 +1,9 @@
 app.service('ApiService', ApiService);
 
 function ApiService($window, $http, $rootScope) {
+
+    $http.defaults.withCredentials = true;
+
     var service = {};
 
     service.getTests = getTests;
@@ -19,12 +22,12 @@ function ApiService($window, $http, $rootScope) {
     }
 
     function startTest(id, password) {
-        return $http.get(service.start_test + id + '?password=' + password);
+        return $http.get(service.start_test + id + '?password=' + password, {withCredentials: true});
     }
 
     function saveAnswers(id, answers) {
         // TODO
         // Add cookie
-        return $http.post(service.save_answers + id, answers);
+        return $http.post(service.save_answers + id, answers, {withCredentials: true});
     }
 }
