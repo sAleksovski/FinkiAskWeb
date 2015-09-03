@@ -14,6 +14,11 @@
     max-height: 44px;
 }
 
+.h44 {
+    max-height: 44px;
+    height: 44px;
+}
+
 .test-tabs:hover {
     text-decoration: none;
     border-bottom: 4px solid #349ff4;
