@@ -1,16 +1,45 @@
 app.controller('TestController', function($scope, $rootScope, $cookieStore, $modal, $location, ApiService) {
 
     $rootScope.title = 'Test';
+    $rootScope.show_back_arrow = true;
+    $rootScope.show_send_test = true;
+    $scope.show = 0;
+
+    $scope.timer = 12 * 60 + 15;
+
+    setInterval(function() {
+        $scope.timer--;
+        var min = Math.floor($scope.timer / 60);
+        var sec = $scope.timer % 60;
+        if (min < 10) {
+            min = '0' + min;
+        };
+        if (sec < 10) {
+            sec = '0' + sec;
+        };
+
+        $rootScope.timeleft = min + ':' + sec;
+        $rootScope.$apply();
+    }, 1000);
+
+    $rootScope.icon_clicked = function() {
+        $scope.show = 0;
+    }
+
+    $rootScope.finish_test_clicked = function() {
+        console.log('Finish test');
+    }
 
     $scope.save = function(question) {
-        $cookieStore.put('globals', $rootScope.globals);
         if (typeof question !== 'undefined') {
+            question.answered = true;
             ApiService.saveAnswers($rootScope.globals.test.id, []).then(function(response) {
                 console.log(response);
             }, function(response) {
                 console.log(response);
             });
         };
+        $cookieStore.put('globals', $rootScope.globals);
     }
 
     for (var i = 0; i < $rootScope.globals.test.questions.length; i++) {
@@ -39,6 +68,10 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
         var answer = question.answers[0];
         answer.text = question.min + ':' + question.max + ':' + question.value;
         $scope.save(question);
+    }
+
+    $scope.changeQuestion = function(id) {
+        $scope.show = id;
     }
 
     angular.element(document).ready(function() {

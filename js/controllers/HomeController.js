@@ -1,6 +1,10 @@
 app.controller('HomeController', function($scope, $rootScope, $cookieStore, $modal, $location, ApiService) {
 
     $rootScope.title = 'Finki ASK';
+    $rootScope.show_back_arrow = false;
+    $rootScope.show_send_test = false;
+
+    $rootScope.icon_clicked = function() {}
 
     $scope.activeTab = $rootScope.globals.activeTab || 'TEST';
     $scope.tests = [];

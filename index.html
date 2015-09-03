@@ -15,7 +15,17 @@
 
     <div class="navbar navbar-default navbar-material-blue navbar-no-margin">
         <div class="navbar-header">
-            <a class="navbar-brand" href=""><i class="mdi-social-school icon"></i> <span class="title">{{ title }}</span></a>
+            <a class="navbar-brand" href="" ng-click="icon_clicked()">
+                <i class="icon" ng-class="{'mdi-navigation-arrow-back': show_back_arrow == true, 'mdi-social-school': ! show_back_arrow}"></i> <span class="title">{{ title }}</span>
+            </a>
+        </div>
+        <div class="navbar-header pull-right" ng-if="show_send_test">
+            <a class="navbar-brand" href="">
+                {{ timeleft }}
+            </a>
+            <a class="navbar-brand send-test" href="" ng-click="finish_test_clicked()">
+                <i class="icon mdi-content-send"></i>
+            </a>
         </div>
     </div>
 
@@ -43,6 +53,5 @@
     <script src="js/controllers/LoginController.js"></script>
     <script src="js/controllers/TestController.js"></script>
     <script src="js/services/ApiService.js"></script>
-
 </body>
 </html>

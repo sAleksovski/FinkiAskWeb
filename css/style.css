@@ -41,6 +41,14 @@
     margin-left: 32px;
 }
 
+.tick {
+    margin-right: 20px;
+    margin-top: -5px;
+}
+
+.send-test {
+    margin-right: 30px;
+}
 
 /* Functional styling;
  * These styles are required for noUiSlider to function.

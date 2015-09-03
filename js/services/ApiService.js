@@ -23,6 +23,8 @@ function ApiService($window, $http, $rootScope) {
     }
 
     function saveAnswers(id, answers) {
+        // TODO
+        // Add cookie
         return $http.post(service.save_answers + id, answers);
     }
 }

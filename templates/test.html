@@ -1,5 +1,19 @@
 <div class="container">
-    <div class="well" ng-repeat="question in globals.test.questions" ng-class="{'mtop20': $index == 0}">
+
+    <div class="well mtop20" ng-show="show == 0">
+        <ul class="nav nav-pills nav-stacked" ng-repeat="question in globals.test.questions">
+            <li ng-class="{'active': show == question.id}">
+                <a href="" ng-click="changeQuestion(question.id)">
+                    Question {{ $index + 1 }}
+                    <span class="pull-right tick" ng-show="question.answered">
+                        <i class="mdi-navigation-check icon"></i>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="well mtop20" ng-repeat="question in globals.test.questions" ng-show="question.id == show">
         <legend>Question {{ $index + 1}}</legend>
         <p>{{ question.text }}</p>
         <div class="clearfix mtop20"></div>
