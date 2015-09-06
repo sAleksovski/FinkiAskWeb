@@ -4,15 +4,26 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
     $rootScope.show_send_test = true;
     $scope.show = 0;
 
+    if (typeof $rootScope.globals.test === 'undefined') {
+        $location.path('/');
+        return;
+    };
+
     var now = parseInt(new Date().getTime() / 1000);
     var to_end = parseInt(new Date($rootScope.globals.test.timer_end) / 1000);
 
     $scope.timer = to_end - now;
     
-    setInterval(function() {
+    var interval_timer = setInterval(function() {
         $scope.timer--;
         var min = Math.floor($scope.timer / 60);
         var sec = $scope.timer % 60;
+        if (min < 0) {
+            min = 0;
+        }
+        if (sec < 0) {
+            sec = 0;
+        }
         if (min < 10) {
             min = '0' + min;
         };
@@ -24,10 +35,11 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
         $rootScope.$apply();
 
         if ($scope.timer == 0) {
-            delete $rootScope.globals.test;
-            $cookieStore.put('globals', $rootScope.globals);
+            $scope.timer += 1;
+            $rootScope.finish_test_clicked();
+        } else if ($scope.timer < 0) {
             $location.path('/');
-        };
+        }
 
     }, 1000);
 
@@ -37,7 +49,20 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
     }
 
     $rootScope.finish_test_clicked = function() {
-        console.log('Finish test');
+
+        ApiService.finishTest($rootScope.globals.test.id, []).then(function (response) {
+            alert(response.data.description);
+            delete $rootScope.globals.test;
+            $cookieStore.put('globals', $rootScope.globals);
+            window.clearInterval(interval_timer);
+            $location.path('/');
+        }, function (response) {
+            delete $rootScope.globals.test;
+            $cookieStore.put('globals', $rootScope.globals);
+            window.clearInterval(interval_timer);
+            $location.path('/');
+        });
+
     }
 
     function generateAnswersToSave(question) {
@@ -88,7 +113,6 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
         if (typeof question !== 'undefined') {
             question.answered = true;
             var answers = generateAnswersToSave(question);
-            console.log(answers);
             ApiService.saveAnswers($rootScope.globals.test.id, answers).then(function(response) {
                 // console.log(response);
                 // console.log('success');

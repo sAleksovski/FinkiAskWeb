@@ -34,12 +34,15 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
             ApiService.startTest(id, password).then(function(response) {
                 if (response.data.responseStatus == 'SUCCESS') {
                     $rootScope.globals.test = response.data.data;
+                    console.log(response.data.data);
                     var endTime = new Date();
                     endTime.setMinutes(endTime.getMinutes() + $rootScope.globals.test.duration);
                     $rootScope.globals.test.timer_end = endTime;
                     $cookieStore.put('globals', $rootScope.globals);
                     $location.path('/test');
-                };
+                } else if (response.data.responseStatus == 'ERROR') {
+                    alert(response.data.description);
+                }
             }, function(response) {
 
             })

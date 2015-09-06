@@ -14,7 +14,7 @@
     </div>
 
     <div class="well mtop20" ng-repeat="question in globals.test.questions" ng-show="question.id == show">
-        <legend>Question {{ $index + 1}}</legend>
+        <legend>Question {{ $index + 1}} <small ng-if="globals.test.type != 'SURVEY'" class="pull-right">Points: {{ question.points }}</small></legend>
         <p>{{ question.text }}</p>
         <div class="clearfix mtop20"></div>
         <!-- <pre>{{question}}</pre> -->

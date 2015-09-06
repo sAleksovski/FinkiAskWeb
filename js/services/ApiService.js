@@ -8,6 +8,7 @@ function ApiService($window, $http, $rootScope) {
 
     service.getTests = getTests;
     service.startTest = startTest;
+    service.finishTest = finishTest;
     service.saveAnswers = saveAnswers;
 
     service.host = "http://192.168.1.67:8080";
@@ -25,9 +26,11 @@ function ApiService($window, $http, $rootScope) {
         return $http.get(service.start_test + id + '?password=' + password, {withCredentials: true});
     }
 
+    function finishTest(id, answers) {
+        return $http.post(service.save_answers + id + '?finish=true', answers, {withCredentials: true});
+    }
+
     function saveAnswers(id, answers) {
-        // TODO
-        // Add cookie
         return $http.post(service.save_answers + id, answers, {withCredentials: true});
     }
 }
