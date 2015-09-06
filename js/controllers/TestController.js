@@ -4,8 +4,11 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
     $rootScope.show_send_test = true;
     $scope.show = 0;
 
-    $scope.timer = 12 * 60 + 15;
+    var now = parseInt(new Date().getTime() / 1000);
+    var to_end = parseInt(new Date($rootScope.globals.test.timer_end) / 1000);
 
+    $scope.timer = to_end - now;
+    
     setInterval(function() {
         $scope.timer--;
         var min = Math.floor($scope.timer / 60);
@@ -19,6 +22,13 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
 
         $rootScope.timeleft = min + ':' + sec;
         $rootScope.$apply();
+
+        if ($scope.timer == 0) {
+            delete $rootScope.globals.test;
+            $cookieStore.put('globals', $rootScope.globals);
+            $location.path('/');
+        };
+
     }, 1000);
 
     $rootScope.icon_clicked = function() {
