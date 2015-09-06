@@ -4,6 +4,8 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
     $rootScope.show_back_arrow = false;
     $rootScope.show_send_test = false;
 
+    window.clearInterval($rootScope.interval_timer);
+
     $rootScope.icon_clicked = function() {}
 
     $scope.activeTab = $rootScope.globals.activeTab || 'TEST';
@@ -23,6 +25,33 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
     $scope.changeTab($scope.activeTab);
 
     $scope.open = function(id) {
+
+        if (id == $scope.active) {
+            var now = parseInt(new Date().getTime() / 1000);
+            var to_end = parseInt(new Date($rootScope.globals.test.timer_end) / 1000);
+
+            if (to_end - now < 0) {
+                var index = -1;
+                for (var i = 0; i < $scope.tests.length; i++) {
+                    if ($scope.tests[i].id == id) {
+                        index = i;
+                    };
+                };
+
+                if (index > -1) {
+                    $scope.tests.splice(index, 1);
+                }
+
+                delete $scope.active;
+                delete $rootScope.globals.test;
+                $cookieStore.put('globals', $rootScope.globals);
+            } else {
+                $location.path('/test');
+            }
+
+            return;
+        };
+
         var modalInstance = $modal.open({
             animation: true,
             templateUrl: 'passwordModalContent.html',
@@ -34,7 +63,6 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
             ApiService.startTest(id, password).then(function(response) {
                 if (response.data.responseStatus == 'SUCCESS') {
                     $rootScope.globals.test = response.data.data;
-                    console.log(response.data.data);
                     var endTime = new Date();
                     endTime.setMinutes(endTime.getMinutes() + $rootScope.globals.test.duration);
                     $rootScope.globals.test.timer_end = endTime;
@@ -49,11 +77,49 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
         }, function() {});
     };
 
+    if (typeof $rootScope.globals.test !== 'undefined') {
+        var now = parseInt(new Date().getTime() / 1000);
+        var to_end = parseInt(new Date($rootScope.globals.test.timer_end) / 1000);
+
+        if (to_end - now < 0) {
+            delete $scope.active;
+            delete $rootScope.globals.test;
+            delete $rootScope.globals.test;
+            $cookieStore.put('globals', $rootScope.globals);
+        } else {
+            $scope.active = $rootScope.globals.test.id;
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'testInProgressModalContent.html',
+                controller: 'TestInProgressModalInstanceCtrl'
+            });
+        }
+
+        $scope.timer = to_end - now;
+    };
+
 });
 
 angular.module('finkiAskApp').controller('PasswordModalInstanceCtrl', function($scope, $modalInstance) {
     $scope.ok = function() {
         $modalInstance.close($scope.inputPassword);
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+angular.module('finkiAskApp').controller('TestInProgressModalInstanceCtrl', function($scope, $rootScope, $modalInstance, $location) {
+
+    var now = parseInt(new Date().getTime() / 1000);
+    var to_end = parseInt(new Date($rootScope.globals.test.timer_end) / 1000);
+
+    $scope.minutes = parseInt((to_end - now) / 60) + 1;
+
+    $scope.ok = function() {
+        $location.path('/test');
+        $modalInstance.dismiss('cancel');
     };
 
     $scope.cancel = function() {

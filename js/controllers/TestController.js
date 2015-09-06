@@ -14,7 +14,7 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
 
     $scope.timer = to_end - now;
     
-    var interval_timer = setInterval(function() {
+    $rootScope.interval_timer = setInterval(function() {
         $scope.timer--;
         var min = Math.floor($scope.timer / 60);
         var sec = $scope.timer % 60;
@@ -54,12 +54,12 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
             alert(response.data.description);
             delete $rootScope.globals.test;
             $cookieStore.put('globals', $rootScope.globals);
-            window.clearInterval(interval_timer);
+            window.clearInterval($rootScope.interval_timer);
             $location.path('/');
         }, function (response) {
             delete $rootScope.globals.test;
             $cookieStore.put('globals', $rootScope.globals);
-            window.clearInterval(interval_timer);
+            window.clearInterval($rootScope.interval_timer);
             $location.path('/');
         });
 

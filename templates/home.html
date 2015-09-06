@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="well mtop20" ng-repeat="test in tests" ng-click="open(test.id)">
-        <legend>{{ test.name }}</legend>
+        <legend>{{ test.name }} <span ng-show="test.id == active" class="pull-right mright20" title="This test is already started."><i class="mdi-content-drafts icon"></i></span></legend>
         <div>Allowed time: {{ test.duration }} minutes</div>
     </div>
 
@@ -29,6 +29,20 @@
         <div class="modal-footer mtop20">
             <button class="btn btn-material-red" type="button" ng-click="cancel()">Cancel</button>
             <button class="btn btn-material-blue" type="button" ng-click="ok()">OK</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="testInProgressModalContent.html">
+        <div class="modal-header mtop100">
+            <h3 class="modal-title">Test in progress!</h3>
+        </div>
+        <div class="modal-body">
+            <p>A test is already in progress. You have approximately {{ minutes }} minutes left.</p>
+            <p>Do you want to continue?</p>
+        </div>
+        <div class="modal-footer mtop20">
+            <button class="btn btn-material-red" type="button" ng-click="cancel()">No</button>
+            <button class="btn btn-material-blue" type="button" ng-click="ok()">Yes</button>
         </div>
     </script>
 </div>
