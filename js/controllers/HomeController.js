@@ -62,6 +62,7 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
             $scope.password = password;
             ApiService.startTest(id, password).then(function(response) {
                 if (response.data.responseStatus == 'SUCCESS') {
+                    delete $rootScope.question;
                     $rootScope.globals.test = response.data.data;
                     var endTime = new Date();
                     endTime.setMinutes(endTime.getMinutes() + $rootScope.globals.test.duration);

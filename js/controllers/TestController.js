@@ -46,9 +46,28 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
     $rootScope.icon_clicked = function() {
         $scope.show = 0;
         $rootScope.show_back_arrow = false;
+        $rootScope.save($rootScope.question);
     }
 
     $rootScope.finish_test_clicked = function() {
+
+        if (typeof $rootScope.question != "undefined" ) {
+            $rootScope.save($rootScope.question, function() {
+                ApiService.finishTest($rootScope.globals.test.id, []).then(function (response) {
+                    alert(response.data.description);
+                    delete $rootScope.globals.test;
+                    $cookieStore.put('globals', $rootScope.globals);
+                    window.clearInterval($rootScope.interval_timer);
+                    $location.path('/');
+                }, function (response) {
+                    delete $rootScope.globals.test;
+                    $cookieStore.put('globals', $rootScope.globals);
+                    window.clearInterval($rootScope.interval_timer);
+                    $location.path('/');
+                });
+            });
+            return;
+        };
 
         ApiService.finishTest($rootScope.globals.test.id, []).then(function (response) {
             alert(response.data.description);
@@ -109,17 +128,30 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
         return [];
     }
 
-    $scope.save = function(question) {
+    $rootScope.save = function(question, callback) {
         if (typeof question !== 'undefined') {
             question.answered = true;
             var answers = generateAnswersToSave(question);
+
             ApiService.saveAnswers($rootScope.globals.test.id, answers).then(function(response) {
-                // console.log(response);
-                // console.log('success');
+                $scope.mutex = false;
+                if (response.data.responseStatus == "ERROR") {
+                    if (response.data.description == "Session does not exist.") {
+                        alert("Your session has expired.");
+                        delete $rootScope.globals.test;
+                        $cookieStore.put('globals', $rootScope.globals);
+                        window.clearInterval($rootScope.interval_timer);
+                        $location.path('/');
+                    }
+                };
+                if (typeof callback != "undefined") {
+                    callback();
+                };
             }, function(response) {
                 // console.log(response);
                 // console.log('fail');
             });
+
         };
         $cookieStore.put('globals', $rootScope.globals);
     }
@@ -143,17 +175,21 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
             }
         };
 
-        $scope.save();
+        $rootScope.save();
     };
 
     $scope.sliderChanged = function(question) {
         var answer = question.answers[0];
         answer.text = question.min + ':' + question.max + ':' + question.value;
-        $scope.save(question);
     }
 
     $scope.changeQuestion = function(id) {
         $scope.show = id;
+        for (var i = 0; i < $rootScope.globals.test.questions.length; i++) {
+            if ($rootScope.globals.test.questions[i].id == id) {
+                $rootScope.question = $rootScope.globals.test.questions[i];
+            }
+        };
         $rootScope.show_back_arrow = true;
     }
 

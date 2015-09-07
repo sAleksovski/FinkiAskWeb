@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="well mtop20" ng-repeat="test in tests" ng-click="open(test.id)">
-        <legend>{{ test.name }} <span ng-show="test.id == active" class="pull-right mright20" title="This test is already started."><i class="mdi-content-drafts icon"></i></span></legend>
+        <legend>{{ test.name }} <span ng-show="test.id == active" class="pull-right mright20" title="This test is already started."><i class="mdi-content-drafts icon mdi-material-blue"></i></span></legend>
         <div>Allowed time: {{ test.duration }} minutes</div>
     </div>
 
