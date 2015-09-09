@@ -53,35 +53,43 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
 
         if (typeof $rootScope.question != "undefined" ) {
             $rootScope.save($rootScope.question, function() {
-                ApiService.finishTest($rootScope.globals.test.id, []).then(function (response) {
-                    alert(response.data.description);
-                    delete $rootScope.globals.test;
-                    $cookieStore.put('globals', $rootScope.globals);
-                    window.clearInterval($rootScope.interval_timer);
-                    $location.path('/');
-                }, function (response) {
-                    delete $rootScope.globals.test;
-                    $cookieStore.put('globals', $rootScope.globals);
-                    window.clearInterval($rootScope.interval_timer);
-                    $location.path('/');
-                });
+                finishTest();
             });
             return;
         };
+        finishTest();
+    }
 
-        ApiService.finishTest($rootScope.globals.test.id, []).then(function (response) {
-            alert(response.data.description);
-            delete $rootScope.globals.test;
-            $cookieStore.put('globals', $rootScope.globals);
-            window.clearInterval($rootScope.interval_timer);
-            $location.path('/');
-        }, function (response) {
-            delete $rootScope.globals.test;
-            $cookieStore.put('globals', $rootScope.globals);
-            window.clearInterval($rootScope.interval_timer);
-            $location.path('/');
-        });
+    $scope.queue = [];
 
+    function finishTest() {
+        var key;
+        var allFinished = 0;
+        for (key in $scope.queue) {
+            if ($scope.queue.hasOwnProperty(key)  &&        // These are explained
+                /^0$|^[1-9]\d*$/.test(key) &&    // and then hidden
+                key <= 4294967294                // away below
+                ) {
+                allFinished += $scope.queue[key].length;
+            }
+        }
+
+        if (allFinished == 0) {
+            ApiService.finishTest($rootScope.globals.test.id, []).then(function (response) {
+                alert(response.data.description);
+                delete $rootScope.globals.test;
+                $cookieStore.put('globals', $rootScope.globals);
+                window.clearInterval($rootScope.interval_timer);
+                $location.path('/');
+            }, function (response) {
+                delete $rootScope.globals.test;
+                $cookieStore.put('globals', $rootScope.globals);
+                window.clearInterval($rootScope.interval_timer);
+                $location.path('/');
+            });
+        } else {
+            setTimeout(finishTest, 1000);
+        }
     }
 
     function generateAnswersToSave(question) {
@@ -131,29 +139,52 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
     $rootScope.save = function(question, callback) {
         if (typeof question !== 'undefined') {
             question.answered = true;
-            var answers = generateAnswersToSave(question);
 
-            ApiService.saveAnswers($rootScope.globals.test.id, answers).then(function(response) {
-                $scope.mutex = false;
-                if (response.data.responseStatus == "ERROR") {
-                    if (response.data.description == "Session does not exist.") {
-                        alert("Your session has expired.");
-                        delete $rootScope.globals.test;
-                        $cookieStore.put('globals', $rootScope.globals);
-                        window.clearInterval($rootScope.interval_timer);
-                        $location.path('/');
-                    }
-                };
-                if (typeof callback != "undefined") {
-                    callback();
-                };
-            }, function(response) {
-                // console.log(response);
-                // console.log('fail');
-            });
+            if (typeof $scope.queue[question.id] === "undefined") {
+                $scope.queue[question.id] = [];
+            };
+            $scope.queue[question.id].push(question);
+
+            if ($scope.queue[question.id].length == 1) {
+                callSaveAnswers(question, callback);
+            }
 
         };
         $cookieStore.put('globals', $rootScope.globals);
+    }
+
+    function callSaveAnswers(question, callback) {
+        var answers = generateAnswersToSave(question);
+        ApiService.saveAnswers($rootScope.globals.test.id, answers).then(function(response) {
+            if (response.data.responseStatus == "ERROR") {
+                if (response.data.description == "Session does not exist.") {
+                    alert("Your session has expired.");
+                    delete $rootScope.globals.test;
+                    $cookieStore.put('globals', $rootScope.globals);
+                    window.clearInterval($rootScope.interval_timer);
+                    $location.path('/');
+                }
+            };
+            $scope.queue[question.id].splice(0, 1);
+            if ($scope.queue[question.id].length > 0) {
+                var newQuestion = $scope.queue[question.id][$scope.queue[question.id].length - 1];
+                $scope.queue[question.id] = [];
+                $rootScope.save(newQuestion);
+            };
+            if (typeof callback != "undefined") {
+                callback();
+            };
+        }, function(response) {
+            $scope.queue[question.id].splice(0, 1);
+            if ($scope.queue[question.id].length > 0) {
+                var newQuestion = $scope.queue[question.id][$scope.queue[question.id].length - 1];
+                $scope.queue[question.id] = [];
+                $rootScope.save(newQuestion);
+            };
+            if (typeof callback != "undefined") {
+                callback();
+            };
+        });
     }
 
     for (var i = 0; i < $rootScope.globals.test.questions.length; i++) {
