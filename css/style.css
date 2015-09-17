@@ -73,14 +73,24 @@
     top: -11px;
 }
 
-#test-progress-result {
-    text-align: center;
-    margin-top: 10%;
+.progress-wrapper {
+    position: relative;
+    margin:20px auto;
+    font-size: 40px;
 }
 
-#test-text-result {
-     text-align: center;
-     margin-top: 10%;
+.progress-text {
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.result-container{
+    width: 100%;
+    max-width: 960px;
+    margin:100px auto;
+    text-align: center;
 }
 
 #survey-text-result {
@@ -94,10 +104,4 @@
     margin-top: 10%;
     width: 200px;
     height: 200px;
-}
-
-#grade-result {
-    position: static;
-    text-align: center;
-    margin-top: -10%;
 }
