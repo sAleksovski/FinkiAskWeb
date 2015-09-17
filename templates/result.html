@@ -1,0 +1,28 @@
+<div class="container">
+
+    <div ng-if="globals.type == 'TEST'">
+        <div id="test-progress-result"
+             round-progress
+             max="100"
+             current="globals.result"
+             color="#2196F3"
+             bgcolor="#EEE"
+             radius="100"
+             stroke="20"
+             rounded="false"
+             clockwise="true"
+             responsive="false"
+             duration="2000"
+             animation="easeInOutQuart">
+        </div>
+        <h3 id="grade-result">{{ getGrade() }}</h3>
+        <h2 id="test-text-result">You have scored {{ globals.result }}% on the test.</h2><br/>
+    </div>
+
+    <div ng-if="globals.type == 'SURVEY'">
+        <img id="survey-progress-result"
+            src="./img/success.png" />
+        <h2 id="survey-text-result">Thank you for participating in this survey.</h2><br/>
+    </div>
+
+</div>

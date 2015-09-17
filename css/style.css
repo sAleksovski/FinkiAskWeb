@@ -72,3 +72,32 @@
     height: 24px;
     top: -11px;
 }
+
+#test-progress-result {
+    text-align: center;
+    margin-top: 10%;
+}
+
+#test-text-result {
+     text-align: center;
+     margin-top: 10%;
+}
+
+#survey-text-result {
+    text-align: center;
+}
+
+#survey-progress-result {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 200px;
+    height: 200px;
+}
+
+#grade-result {
+    position: static;
+    text-align: center;
+    margin-top: -10%;
+}

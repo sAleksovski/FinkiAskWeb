@@ -76,11 +76,13 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
 
         if (allFinished == 0) {
             ApiService.finishTest($rootScope.globals.test.id, []).then(function (response) {
-                alert(response.data.description);
+                console.log(response.data.data);
+                $rootScope.globals.result = response.data.data;
+                $rootScope.globals.type = $rootScope.globals.test.type;
                 delete $rootScope.globals.test;
                 $cookieStore.put('globals', $rootScope.globals);
                 window.clearInterval($rootScope.interval_timer);
-                $location.path('/');
+                $location.path('/result');
             }, function (response) {
                 delete $rootScope.globals.test;
                 $cookieStore.put('globals', $rootScope.globals);

@@ -1,4 +1,4 @@
-var app = angular.module('finkiAskApp', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'nouislider']);
+var app = angular.module('finkiAskApp', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'nouislider', 'angular-svg-round-progress']);
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
@@ -13,6 +13,10 @@ app.config(['$routeProvider', function($routeProvider) {
         .when('/test', {
             controller: 'TestController',
             templateUrl: 'templates/test.html'
+        })
+        .when('/result', {
+            controller: 'ResultController',
+            templateUrl: 'templates/result.html'
         })
         .otherwise({
             redirectTo: '/'
