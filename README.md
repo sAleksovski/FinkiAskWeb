@@ -1,5 +1,5 @@
 ### Description
-Web application for answering tests and surveys, can be used with or without login with CAS. 
+Web application for answering tests and surveys, can be used with or without login with CAS. To connect with the backend server, you have to change the IP address in [ApiService.js] (https://github.com/sAleksovski/FinkiAskWeb/blob/master/js/services/ApiService.js)
 
 ### Project
 This application is only part of a faculty project for creating a system for taking surveys and tests by students and showing real-time results for professors on separate website. The other components are:
@@ -16,15 +16,16 @@ This application is only part of a faculty project for creating a system for tak
   Backend for the whole system, using REST to communicate with other components
 
 ### Demo screenshots
+[Imgur Album] (http://imgur.com/a/2ockW)
 
 ### Licence
 [GNU General Public License] (https://github.com/sAleksovski/FinkiASK/blob/master/LICENCE.md)
 
 ### Authors
-######Stefan Aleksovski
+###### [Stefan Aleksovski] (https://github.com/sAleksovski)
 
-######Bojan Trajkovski
+###### [Bojan Trajkovski] (https://github.com/btrajkovski)
 
-######Beti Spasovska
+###### [Beti Spasovska] (https://github.com/BetiSpasovska)
 
 
