@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <div class="navbar navbar-default navbar-material-blue navbar-no-margin">
+    <div class="navbar navbar-default navbar-material-blue navbar-no-margin" ng-controller="HomeController">
         <div class="navbar-header navbar-header-full-width">
             <a class="navbar-brand" href="" ng-click="icon_clicked()">
                 <i class="icon" ng-class="{'mdi-navigation-arrow-back': show_back_arrow == true, 'mdi-social-school': ! show_back_arrow}"></i> <span class="title">{{ title }}</span>
@@ -28,12 +28,12 @@
         </div>
     </div>
 
-    <div ng-view></div>
+    <div ui-view></div>
 
     <!-- Concatenated libraries -->
-    <script src="dest/lib.js?rev=4f01fe9c60cd302034053cbb6f178fc4"></script>
+    <script src="dest/lib.js?rev=bf00a21055c0ee1ef078dea0895b48fb"></script>
     <!-- Concatenated application -->
-    <script src="dest/src.js?rev=7b8fca1e3dbad4367548423c85f0c0f0"></script>
+    <script src="dest/src.js?rev=a25328a5113e4db8ab8b32c557838cbe"></script>
     <!-- All html templates -->
     <script src="/dest/templates.js?rev=192397a581a9e4f04f9bbdc4e48a500d"></script>
 

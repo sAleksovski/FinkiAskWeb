@@ -1,27 +1,35 @@
-var app = angular.module('finkiAskApp', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'nouislider', 'angular-svg-round-progress']);
+var app = angular.module('finkiAskApp', ['ngRoute', 'ui.router', 'ngCookies', 'ui.bootstrap', 'nouislider', 'angular-svg-round-progress']);
 
-app.config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-        .when('/', {
+app.config(function ($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+
+        .state('home', {
+            url: '/',
             controller: 'HomeController',
             templateUrl: 'templates/home.html'
         })
-        .when('/login', {
+
+        .state('login', {
+            url: '/login',
             controller: 'LoginController',
             templateUrl: 'templates/login.html'
         })
-        .when('/test', {
+
+        .state('test', {
+            url: '/test',
             controller: 'TestController',
             templateUrl: 'templates/test.html'
         })
-        .when('/result', {
+
+        .state('result', {
+            url: '/result',
             controller: 'ResultController',
             templateUrl: 'templates/result.html'
-        })
-        .otherwise({
-            redirectTo: '/'
         });
-}]);
+});
 
 app.run(function run($rootScope, $cookieStore) {
     // Preserve globals after page refresh

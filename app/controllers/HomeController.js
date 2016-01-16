@@ -6,7 +6,7 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
 
     window.clearInterval($rootScope.interval_timer);
 
-    $rootScope.icon_clicked = function() {}
+    $rootScope.icon_clicked = function() {};
 
     $scope.activeTab = $rootScope.globals.activeTab || 'TEST';
     $scope.tests = [];
@@ -20,7 +20,7 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
         }, function(response) {
             $scope.tests = [];
         });
-    }
+    };
 
     $scope.changeTab($scope.activeTab);
 
@@ -35,8 +35,8 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
                 for (var i = 0; i < $scope.tests.length; i++) {
                     if ($scope.tests[i].id == id) {
                         index = i;
-                    };
-                };
+                    }
+                }
 
                 if (index > -1) {
                     $scope.tests.splice(index, 1);
@@ -50,7 +50,7 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
             }
 
             return;
-        };
+        }
 
         var modalInstance = $modal.open({
             animation: true,
@@ -97,7 +97,7 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
         }
 
         $scope.timer = to_end - now;
-    };
+    }
 
 });
 

@@ -7,7 +7,7 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
     if (typeof $rootScope.globals.test === 'undefined') {
         $location.path('/');
         return;
-    };
+    }
 
     var now = parseInt(new Date().getTime() / 1000);
     var to_end = parseInt(new Date($rootScope.globals.test.timer_end) / 1000);
@@ -26,10 +26,10 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
         }
         if (min < 10) {
             min = '0' + min;
-        };
+        }
         if (sec < 10) {
             sec = '0' + sec;
-        };
+        }
 
         $rootScope.timeleft = min + ':' + sec;
         $rootScope.$apply();
@@ -47,7 +47,7 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
         $scope.show = 0;
         $rootScope.show_back_arrow = false;
         $rootScope.save($rootScope.question);
-    }
+    };
 
     $rootScope.finish_test_clicked = function() {
 
@@ -56,9 +56,9 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
                 finishTest();
             });
             return;
-        };
+        }
         finishTest();
-    }
+    };
 
     $scope.queue = [];
 
@@ -100,25 +100,21 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
             var answers = [];
             for (var i = 0; i < question.answers.length; i++) {
                 var answer = angular.copy(question.answers[i]);
-                answer.isChecked = false;
-                if (answer.id == selected) {
-                    answer.isChecked = true;
-                };
+
+                answer.isChecked = answer.id == selected;;
                 answers.push(answer);
-            };
+            }
             return answers;
         }
         else if (question.type == 'MULTIPLE') {
             var answers = [];
             for (var i = 0; i < question.answers.length; i++) {
                 var answer = angular.copy(question.answers[i]);
-                answer.isChecked = false;
-                if (answer.selected == true) {
-                    answer.isChecked = true;
-                };
+
+                answer.isChecked = answer.selected == true;
                 delete answer.selected;
                 answers.push(answer);
-            };
+            }
             return answers;
         }
         else if (question.type == 'TEXT') {
@@ -134,7 +130,7 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
             answer.isChecked = false;
             answers.push(answer);
             return answers;
-        };
+        }
         return [];
     }
 
@@ -144,16 +140,16 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
 
             if (typeof $scope.queue[question.id] === "undefined") {
                 $scope.queue[question.id] = [];
-            };
+            }
             $scope.queue[question.id].push(question);
 
             if ($scope.queue[question.id].length == 1) {
                 callSaveAnswers(question, callback);
             }
 
-        };
+        }
         $cookieStore.put('globals', $rootScope.globals);
-    }
+    };
 
     function callSaveAnswers(question, callback) {
         var answers = generateAnswersToSave(question);
@@ -166,26 +162,26 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
                     window.clearInterval($rootScope.interval_timer);
                     $location.path('/');
                 }
-            };
+            }
             $scope.queue[question.id].splice(0, 1);
             if ($scope.queue[question.id].length > 0) {
                 var newQuestion = $scope.queue[question.id][$scope.queue[question.id].length - 1];
                 $scope.queue[question.id] = [];
                 $rootScope.save(newQuestion);
-            };
+            }
             if (typeof callback != "undefined") {
                 callback();
-            };
+            }
         }, function(response) {
             $scope.queue[question.id].splice(0, 1);
             if ($scope.queue[question.id].length > 0) {
                 var newQuestion = $scope.queue[question.id][$scope.queue[question.id].length - 1];
                 $scope.queue[question.id] = [];
                 $rootScope.save(newQuestion);
-            };
+            }
             if (typeof callback != "undefined") {
                 callback();
-            };
+            }
         });
     }
 
@@ -193,7 +189,7 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
         var question = $rootScope.globals.test.questions[i];
         if (question.type == "RADIO") {
             question.sel_ans = question.sel_ans || {};
-        };
+        }
 
         if (question.type == "RANGE") {
             var answer = question.answers[0];
@@ -206,15 +202,15 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
             } else {
                 question.value = parseInt(question.min);
             }
-        };
+        }
 
         $rootScope.save();
-    };
+    }
 
     $scope.sliderChanged = function(question) {
         var answer = question.answers[0];
         answer.text = question.min + ':' + question.max + ':' + question.value;
-    }
+    };
 
     $scope.changeQuestion = function(id) {
         $scope.show = id;
@@ -222,9 +218,9 @@ app.controller('TestController', function($scope, $rootScope, $cookieStore, $mod
             if ($rootScope.globals.test.questions[i].id == id) {
                 $rootScope.question = $rootScope.globals.test.questions[i];
             }
-        };
+        }
         $rootScope.show_back_arrow = true;
-    }
+    };
 
     angular.element(document).ready(function() {
         setTimeout(function() {

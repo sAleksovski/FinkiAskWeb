@@ -24,7 +24,7 @@ var JS_LIB = [
     'bower_components/bootstrap-material-design/dist/js/material.js',
     'bower_components/nouislider/jquery.nouislider.min.js',
     'bower_components/angular/angular.min.js',
-    'bower_components/angular-route/angular-route.min.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'bower_components/angular-cookies/angular-cookies.min.js',
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'bower_components/angular-nouislider/src/nouislider.min.js',
@@ -33,7 +33,7 @@ var JS_LIB = [
 ];
 
 var JS_APP = [
-    'js/**/*.js'
+    'app/**/*.js'
 ];
 
 
@@ -138,7 +138,7 @@ gulp.task('build', tasks, function () {
 
 gulp.task('watch', function () {
     gulp.watch('app/**/**.js', ['concat_js_app', 'cache-break']);
-    gulp.watch('views/**/**.html', ['templates', 'cache-break']);
+    gulp.watch('templates/**/**.html', ['templates', 'cache-break']);
     gulp.watch('css/**/**.css', ['concat_css_app', 'cache-break']);
 });
 
