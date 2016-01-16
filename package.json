@@ -9,5 +9,19 @@
   "license": "GPL",
   "bugs": {
     "url": "https://github.com/sAleksovski/FinkiAskWeb/issues"
+  },
+  "devDependencies": {
+    "bower": "^1.7.2",
+    "eslint": "^1.10.3",
+    "eslint-plugin-angular": "^0.15.0",
+    "git-rev": "^0.2.1",
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.3.1",
+    "gulp-css-rebase-urls": "0.0.5",
+    "gulp-eslint": "^1.1.1",
+    "gulp-rev-append": "^0.1.6",
+    "proxy-middleware": "^0.15.0"
   }
 }
