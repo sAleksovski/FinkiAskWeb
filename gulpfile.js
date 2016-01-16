@@ -105,7 +105,7 @@ gulp.task('concat_css_app', function () {
 * in this project 
 */
 gulp.task('templates', function () {
-    return gulp.src('views/**/**.html') // which html files
+    return gulp.src('templates/**/**.html') // which html files
         .pipe(
             templateCache('templates.js', { // compile them as angular templates 
                 module: MODULE_NAME,        // from module MODULE_NAME 
@@ -145,18 +145,18 @@ gulp.task('watch', function () {
 gulp.task('serve', function () {
     connect.server({
         port: 8000,
-        livereload: true,
-        middleware: function (connect, opt) {
-            return [
-                (function () {
-                    var url = require('url');
-                    var proxy = require('proxy-middleware');
-                    var options = url.parse(API_URL);
-                    options.route = API_ROUTE;
-                    return proxy(options);
-                })()
-            ];
-        }
+        livereload: true
+        //middleware: function (connect, opt) {
+        //    return [
+        //        (function () {
+        //            //var url = require('url');
+        //            //var proxy = require('proxy-middleware');
+        //            //var options = url.parse(API_URL);
+        //            //options.route = API_ROUTE;
+        //            //return proxy(options);
+        //        })()
+        //    ];
+        //}
     });
 });
 
