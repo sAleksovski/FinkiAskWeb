@@ -6,4 +6,7 @@ finkiAskWeb.iml
 finkiAskWeb.sublime-project
 finkiAskWeb.sublime-workspace
 
+# npm,bower,gulp
 bower_components
+node_modules
+dest
