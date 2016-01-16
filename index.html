@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width"/>
     <meta name="theme-color" content="#2196F3">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
-    <link href="css/roboto.min.css" rel="stylesheet">
-    <link href="css/material.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-material-design/dist/css/roboto.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-material-design/dist/css/material.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="img/favicon.png" rel="icon" type="image/png">
     <title>Finki ASK Web</title>
@@ -31,9 +32,9 @@
     <div ng-view></div>
 
     <!-- Oh no, jQuery -->
-    <script src="js/resources/jquery.min.js"></script>
-    <script src="js/resources/material.min.js"></script>
-    <script src="js/resources/jquery.nouislider.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
+    <script src="bower_components/nouislider/jquery.nouislider.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             window.material_init = function() {
@@ -42,12 +43,12 @@
         })
     </script>
 
-    <script src="js/resources/angular.min.js"></script>
-    <script src="js/resources/angular-route.min.js"></script>
-    <script src="js/resources/angular-cookies.min.js"></script>
-    <script src="js/resources/ui-bootstrap-tpls.min.js"></script>
-    <script src="js/resources/nouislider.js"></script>
-    <script src="js/resources/roundProgress.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-nouislider/src/nouislider.min.js"></script>
+    <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers/HomeController.js"></script>
     <script src="js/controllers/LoginController.js"></script>

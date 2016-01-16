@@ -1,0 +1,13 @@
+{
+  "name": "FinkiAskWeb",
+  "version": "0.1.1",
+  "description": "Web Application for answering surveys and questions.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sAleksovski/FinkiAskWeb.git"
+  },
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/sAleksovski/FinkiAskWeb/issues"
+  }
+}

@@ -5,3 +5,5 @@ finkiAskWeb.iml
 # Sublime Text
 finkiAskWeb.sublime-project
 finkiAskWeb.sublime-workspace
+
+bower_components
