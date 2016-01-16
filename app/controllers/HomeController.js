@@ -24,6 +24,24 @@ app.controller('HomeController', function($scope, $rootScope, $cookieStore, $mod
 
     $scope.changeTab($scope.activeTab);
 
+    $scope.swipeLeft = function() {
+        if ($scope.activeTab == 'TEST') {
+            $scope.changeTab('ANONYMOUSTEST');
+        }
+        else if ($scope.activeTab == 'ANONYMOUSTEST') {
+            $scope.changeTab('SURVEY');
+        };
+    };
+
+    $scope.swipeRight = function() {
+        if ($scope.activeTab == 'ANONYMOUSTEST') {
+            $scope.changeTab('TEST');
+        }
+        else if ($scope.activeTab == 'SURVEY') {
+            $scope.changeTab('ANONYMOUSTEST');
+        };
+    };
+
     $scope.open = function(id) {
 
         if (id == $scope.active) {

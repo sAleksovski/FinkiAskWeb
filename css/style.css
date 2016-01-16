@@ -1,3 +1,21 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.full-height {
+    position: relative;
+    height: auto !important;
+    min-height: calc(100% - 64px);
+}
+
+.home-container {
+    position: relative;
+    height: calc(100vh - 110px);
+}
+
 .mtop20 {
     margin-top: 20px;
 }

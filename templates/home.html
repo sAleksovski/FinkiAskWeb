@@ -4,7 +4,7 @@
     <a href="" ng-click="changeTab('SURVEY')" class="col-xs-4 btn-material-blue test-tabs" ng-class="{'active-tab': activeTab == 'SURVEY'}">SURVEYS</a>
 </div>
 
-<div class="container">
+<div class="container home-container" ng-swipe-left="swipeLeft()" ng-swipe-right="swipeRight()">
     <div class="well mtop20" ng-repeat="test in tests" ng-click="open(test.id)">
         <legend>{{ test.name }} <span ng-show="test.id == active" class="pull-right mright20" title="This test is already started."><i class="mdi-content-drafts icon mdi-material-blue"></i></span></legend>
         <div>Allowed time: {{ test.duration }} minutes</div>
