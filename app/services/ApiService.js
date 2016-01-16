@@ -11,10 +11,10 @@ function ApiService($window, $http, $rootScope) {
     service.finishTest = finishTest;
     service.saveAnswers = saveAnswers;
 
-    service.host = "http://192.168.1.67:8080";
-    service.get_test_url = service.host + "/ask/api/tests?type="
-    service.start_test = service.host + "/ask/api/tests/"
-    service.save_answers = service.host + "/ask/api/tests/"
+    service.host = "http://192.168.1.121:8080";
+    service.get_test_url = service.host + "/ask/api/tests?type=";
+    service.start_test = service.host + "/ask/api/tests/";
+    service.save_answers = service.host + "/ask/api/tests/";
 
     return service;
 
