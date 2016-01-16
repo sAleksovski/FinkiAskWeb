@@ -1,4 +1,4 @@
-var app = angular.module('finkiAskApp', ['ngRoute', 'ui.router', 'ngCookies', 'ui.bootstrap', 'nouislider', 'angular-svg-round-progress']);
+var app = angular.module('finkiAskApp', ['ui.router', 'ngCookies', 'ui.bootstrap', 'nouislider', 'angular-svg-round-progress']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 
